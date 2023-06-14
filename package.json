@@ -1,0 +1,28 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix ."
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "start": "./bin/start.js",
+    "start:all": "./bin/start-all.js",
+    "stop": "./bin/stop.js",
+    "stop:all": "./bin/stop-all.js"
+  },
+  "dependencies": {
+    "commander": "^10.0.1",
+    "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0"
+  }
+}

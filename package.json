@@ -9,10 +9,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "start": "./bin/start.js",
-    "start:all": "./bin/start-all.js",
-    "stop": "./bin/stop.js",
-    "stop:all": "./bin/stop-all.js"
+    "service-manager": "./bin/service-manager.js"
   },
   "dependencies": {
     "commander": "^10.0.1",

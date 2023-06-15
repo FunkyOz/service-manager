@@ -30,11 +30,16 @@ async function getServiceDirectories(services = []) {
     .map(dir => dir.name)
 }
 
-async function start(service) {
+async function start(service, options = {}) {
+  const { withMigration = false, withSeed = false } = options
   await up(service)
-  await createDatabase(service)
-  await migrate(service)
-  await seed(service)
+  if (withMigration) {
+    await createDatabase(service)
+    await migrate(service)
+  }
+  if (withSeed) {
+    await seed(service)
+  }
 }
 
 async function stop(service, options = {}) {
@@ -47,7 +52,7 @@ async function startAll(services = [], options = {}) {
 
   logger.info(`start services \n\t ${services.join('\n\t ')}`)
   const processes = services
-    .map(dir => decoratePromiseWithService(start, dir))
+    .map(dir => decoratePromiseWithService(start, dir, options))
 
   const fulfilleds = []
 
@@ -61,17 +66,18 @@ async function startAll(services = [], options = {}) {
     fulfilleds.push(value)
   }
 
-  if (options?.rollbackOnError && fulfilleds.length !== processes.length) {
+  const { rollbackOnError = false } = options ?? {}
+  if (rollbackOnError && fulfilleds.length !== processes.length) {
     logger.info('start rollback')
     await stopAll(fulfilleds)
   }
 }
 
-async function stopAll(services = []) {
+async function stopAll(services = [], options = {}) {
   const logger = getLogger()
   services = (await getServiceDirectories(services))
   logger.info(`stop services \n\t ${services.join('\n\t ')}`)
-  const processes = services.map(dir => decoratePromiseWithService(stop, dir))
+  const processes = services.map(dir => decoratePromiseWithService(stop, dir, options))
 
   try {
     await Promise.all(processes)

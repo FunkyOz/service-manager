@@ -1,6 +1,6 @@
 const { spawn } = require('child_process')
 const { existsSync } = require('fs')
-const { getProjectDir } = require('./../../config')
+const { getProjectDir } = require('../../config')
 const winston = require('winston')
 
 const logger = winston.createLogger({

@@ -12,9 +12,6 @@ const logger = winston.createLogger({
 
 exports = module.exports = {
   buildDockerCompose(service) {
-    if (!service.startsWith('dam-')) {
-      service = `dam-${service}`
-    }
     const serviceDir = `${getProjectDir()}/${service}`
     if (!existsSync(serviceDir)) {
       throw new Error(`${serviceDir} does not exists.`)

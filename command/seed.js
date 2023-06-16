@@ -8,6 +8,6 @@ exports = module.exports = async function(service) {
     '-e', 'NODE_ENV=development',
     '-T',
     'web',
-    'npm', 'run', 'seed'
+    'npm', 'run', 'seed:dev'
   ])
 }
